@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>cross_site</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <button id="btn">点击我下载资源</button></br>
+    <iframe id="frame" src="./三列布局_float.html#hellohash#12345"></iframe>
+</body>
+<script type="text/javascript">
+	var ajax = function() {
+		let meg = 'nothing!';
+		const httpRequest = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft XMLHttp');
+		httpRequest.open('GET', 'https://api.douban.com/v2/book/search?q=javascript&count=1')
+		httpRequest.setRequestHeader('Content_Type', 'text/plain;charset=utf8');
+		httpRequest.onreadystatechange = function() {
+			if (httpRequest.readyState === 4 && httpRequest.status ===200) {
+				meg = httpRequest.responseText;
+			}else if (httpRequest.status === 400) {
+				`httpRequest.status = ${httpRequest.status}`
+			}
+			let text = document.createTextNode(meg);
+			document.body.appendChild(text);
+		}
+		httpRequest.onerror = function(err) {
+				console.log(err);
+			} 
+		httpRequest.send();
+	};
+	
+	// let btn = document.getElementById('btn');
+	// btn.addEventListener('click', ajax, false);
+</script>
+
+<!-- JSONP -->
+<script type="text/javascript">
+    function handleResponse(response){
+    	let text = document.createTextNode(response);
+		document.body.appendChild(text);
+    }
+</script>
+<script type="text/javascript">
+    window.onload = function() {
+    var btn = document.getElementById('btn');
+    var jsonp = function() {     
+        var script = document.createElement("script");
+        // script.src = "https://api.douban.com/v2/book/search?q=javascript&count=1&callback=handleResponse";
+        // script.src = "./text.c?callback=handleResponse"
+        script.src = "./123.js"
+        document.body.insertBefore(script, document.body.firstChild); 
+    };
+	btn.addEventListener('click', jsonp, false);
+};
+</script>
+
+<!-- postMessage to 123.html -->
+<script type="text/javascript">
+	window.postMessage('hello, i am cross_site.html', '*');
+</script>
+
+<!-- hash -->
+<script type="text/javascript">
+	var frame = document.getElementById('frame');
+	// frame.src = './三列布局_float.html#hellohash';
+</script>
+</html>

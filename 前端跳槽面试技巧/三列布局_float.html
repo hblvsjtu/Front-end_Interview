@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>三列布局</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css" media="screen">
+	html * {
+		padding: 0;
+		margin: 0;
+	}
+
+	.contain11, .contain12, .contain13, .contain14, .contain2, .contain3, .contain4,.contain5 {
+		margin-bottom: 100px;
+	}
+
+	/*第一种方法1：自身浮动法布局 */
+	.contain11 {
+		height: 100px;
+	}
+
+	.contain11 .left {
+		float: left;
+		width: 300px;
+		height: 100%;
+		background-color: green;
+	}
+	.contain11 .right {
+		float: right;
+		width: 300px;
+		height: 100%;
+		background-color: yellow;
+	}
+
+	.contain11 .middle {
+		height: 100%;
+		background: red;
+	}
+
+	/*第一种方法2：负边距浮动法布局 */
+	.contain12 {
+		height: 100px;
+		padding:0 300px;
+	}
+
+	.contain12 .left {
+		float: left;
+		width: 300px;
+		height: 100%;
+		margin-left:-300px;
+		background-color: green;
+	}
+	.contain12 .right {
+		float: right;
+		width: 300px;
+		height: 100%;
+		margin-right: -300px;
+		background-color: yellow;
+	}
+
+	.contain12 .middle {
+		height: 100%;
+		background: red;
+	}
+
+	/*第一种方法3：圣杯布局 */
+	.contain13 {
+		height: 100px;
+		padding:0 300px;
+	}
+
+	.contain13 .middle {
+		float: left;
+		width: 100%;
+		height: 100%;
+		background: red;
+	}
+
+	.contain13 .left {
+		float: left;
+		width: 300px;
+		height: 100%;
+		margin-left:-100%;
+		background-color: green;
+		/*中间栏的位置摆正之后，左栏的位置也相应右移，通过相对定位的left恢复到正确位置*/
+		position: relative;
+		left: -300px;
+	}
+	.contain13 .right {
+		float: left;
+		width: 300px;
+		height: 100%;
+		margin-left: -300px;
+		background-color: yellow;
+		/*中间栏的位置摆正之后，右栏的位置也相应左移，通过相对定位的right恢复到正确位置*/
+		position: relative;
+		right: -300px;
+	}
+
+
+	/*第一种方法4：双飞翼布局 */
+	.contain14 {
+		height: 100px;
+	}
+
+	.contain14 .middle {
+		float: left;
+		width: 100%;
+		height: 100%;
+		background: red;
+	}
+
+	/*给内部div添加margin，把内容放到中间栏，其实整个背景还是100%*/ 
+	.contain14 .inside {
+		margin: 0 300px;
+	}
+
+
+	.contain14 .left {
+		float: left;
+		width: 300px;
+		height: 100%;
+		margin-left: -100%;
+		background-color: green;
+	}
+
+	.contain14 .right {
+		float: left;
+		width: 300px;
+		height: 100%;
+		margin-left: -300px;
+		background-color: yellow;
+	}
+
+	/*第二种方法：绝对定位布局 */
+	.contain2 {
+		position: relative;
+		height: 100px;
+	}
+	.contain2 .left {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 300px;
+		background: green;
+	}
+	.contain2 .right {
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 300px;
+		background: yellow;
+	}
+	.contain2 .middle {
+		position: absolute;
+		left: 300px;
+		right: 300px;
+		top: 0;
+		bottom: 0;
+		background: red;
+	}
+
+	/*第三种方法：弹性盒子布局 */
+	/*子元素高度默认100%*/
+	.contain3 {
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		min-height: 100px;
+	}
+	.contain3 .left {
+		width: 300px;
+		background: green;
+	}
+	.contain3 .right {
+		width: 300px;
+		background: yellow;
+	}
+	.contain3 .middle {
+		flex: 1;
+		background: red;
+	}
+
+	/*第四种方法：表格布局 */
+	/*子元素高度默认100%*/
+	.contain4 {
+		display: table;
+		width: 100%;
+		min-height: 100px;
+	}
+	.contain4 .left {
+		display: table-cell;
+		width: 300px;
+		background: green;
+	}
+	.contain4 .right {
+		display: table-cell;
+		width: 300px;
+		background: yellow;
+	}
+	.contain4 .middle {
+		display: table-cell;
+		background: red;
+	}
+
+
+	/*第五种方法：网格布局 */
+	.contain5{
+		display: grid;
+		width: 100%;
+		/* grid-template-rows: 100px; */
+		min-height: 100px;
+		grid-template-columns: 300px auto 300px;
+	}
+	.contain5 .left {
+		background: green;
+	}
+	.contain5 .right {
+		background: yellow;
+	}
+	.contain5 .middle {
+		background: red;
+	}
+</style>
+</head>
+<body>
+
+	<article class="contain11">
+    	<div class="left"></div>
+    	<!-- 中间的部分要放在最后，否则右侧的部分就会跳到下一行，
+    	中间的部分就会占据中间和右边的内容-->
+    	<div class="right"></div>
+    	<div class="middle">
+    		<h1>第一种方法1：float</h1>
+    		<p>第一种方法：float</p>
+    		<p>第一种方法：float</p>
+    		<p>第一种方法：float</p>
+    		<p>第一种方法：float</p>
+    		<p>第一种方法：float</p>
+    		<p>第一种方法：float</p>
+    		<p>第一种方法：float</p>
+    	</div>
+    </article>
+
+    <article class="contain12">
+    	<div class="left"></div>
+    	<!-- 中间的部分要放在最后，否则右侧的部分就会跳到下一行，
+    	中间的部分就会占据中间和右边的内容-->
+    	<div class="right"></div>
+    	<div class="middle">
+    		<h1>第一种方法2：负边距浮动法布局</h1>
+    		<p>第一种方法2：负边距浮动法布局</p>
+    		<p>第一种方法2：负边距浮动法布局</p>
+    		<p>第一种方法2：负边距浮动法布局</p>
+    		<p>第一种方法2：负边距浮动法布局</p>
+    		<p>第一种方法2：负边距浮动法布局</p>
+    		<p>第一种方法2：负边距浮动法布局</p>
+    		<p>第一种方法2：负边距浮动法布局</p>
+    	</div>
+    </article>
+
+    <article class="contain13">
+    	<div class="middle">
+    		<h1>第一种方法3：圣杯布局</h1>
+    		<p>第一种方法3：圣杯布局</p>
+    		<p>第一种方法3：圣杯布局</p>
+    		<p>第一种方法3：圣杯布局</p>
+    		<p>第一种方法3：圣杯布局</p>
+    		<p>第一种方法3：圣杯布局</p>
+    		<p>第一种方法3：圣杯布局</p>
+    		<p>第一种方法3：圣杯布局</p>
+    	</div>
+    	<div class="left"></div>
+    	<div class="right"></div>
+    	
+    </article>
+
+    <article class="contain14">
+    	<div class="middle">
+    		<div class="inside">
+    		<h1>第一种方法4：双飞翼布局</h1>
+    		<p>第一种方法4：双飞翼布局</p>
+    		<p>第一种方法4：双飞翼布局</p>
+    		<p>第一种方法4：双飞翼布局</p>
+    		<p>第一种方法4：双飞翼布局</p>
+    		<p>第一种方法4：双飞翼布局</p>
+    		<p>第一种方法4：双飞翼布局</p>
+    		<p>第一种方法4：双飞翼布局</p>
+    	</div>
+    	</div>
+    	<div class="left"></div>
+    	<div class="right"></div>
+    </article>
+
+    <article class="contain2">
+    	<div class="left"></div>
+    	<div class="middle">
+    		<h1>第二种方法：绝对定位</h1>
+    		<p>第二种方法：绝对定位</p>
+    		<p>第二种方法：绝对定位</p>
+    		<p>第二种方法：绝对定位</p>
+    		<p>第二种方法：绝对定位</p>
+    		<p>第二种方法：绝对定位</p>
+    		<p>第二种方法：绝对定位</p>
+    		<p>第二种方法：绝对定位</p>
+    	</div>
+    	<div class="right"></div>    	
+    </article>
+
+    <article class="contain3">
+    	<div class="left"></div>
+    	<div class="middle">
+    		<h1>第三种方法：flex弹性盒子</h1>
+    		<p>第三种方法：flex弹性盒子</p>
+    		<p>第三种方法：flex弹性盒子</p>
+    		<p>第三种方法：flex弹性盒子</p>
+    		<p>第三种方法：flex弹性盒子</p>
+    		<p>第三种方法：flex弹性盒子</p>
+    		<p>第三种方法：flex弹性盒子</p>
+    		<p>第三种方法：flex弹性盒子</p>
+    	</div>
+    	<div class="right"></div>    	
+    </article>
+
+     <article class="contain4">
+    	<div class="left"></div>
+    	<div class="middle">
+    		<h1>第四种方法：表格布局</h1>
+    		<p>第四种方法：表格布局</p>
+    		<p>第四种方法：表格布局</p>
+    		<p>第四种方法：表格布局</p>
+    		<p>第四种方法：表格布局</p>
+    		<p>第四种方法：表格布局</p>
+    		<p>第四种方法：表格布局</p>
+    		<p>第四种方法：表格布局</p>
+    	</div>
+    	<div class="right"></div>    	
+    </article>
+
+    <article class="contain5">
+    	<div class="left"></div>
+    	<div class="middle">
+    		<h1>第五种方法：网格布局</h1>
+    		<p>第五种方法：网格布局</p>
+    		<p>第五种方法：网格布局</p>
+    		<p>第五种方法：网格布局</p>
+    		<p>第五种方法：网格布局</p>
+    		<p>第五种方法：网格布局</p>
+    		<p>第五种方法：网格布局</p>
+    		<p>第五种方法：网格布局</p>
+    	</div>
+    	<div class="right"></div>    	
+    </article>
+</body>
+<script type="text/javascript">
+	window.addEventListener('message', function(event) {
+		console.log(event.origin);
+		console.log(event.source);
+		console.log(event.data);
+	}, false);
+</script>
+<script type="text/javascript">
+	window.onhashchange = function() {
+		var hash = window.location.hash;
+		console.log(hash);
+		var t = document.createTextNode(hash);
+		document.body.appendChild(t);
+	}
+</script>
+</html>
