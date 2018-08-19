@@ -36,3 +36,26 @@
 
 
 
+**算法**
+
+
+*越到后面与发现算法的重要性，以前学得算法只能到入门的地步，后面需要不断的提高自己对于前端常见算法的学习，下面是一些搜集到的非常好的资料，希望未来10天内能把他们看完*
+
+
+**[前端常见算法的JS实现 作者：小小赵老汉](https://segmentfault.com/a/1190000008593715)**
+
+
+**[前端也需要好好的精进自己的算法 作者：jessezhao1990](https://segmentfault.com/a/1190000015849882)**
+
+
+**[BFS,DFS 算法原理及js实现 作者：_ivenj](https://segmentfault.com/a/1190000012457151)**
+
+
+**[javascript-algorithms](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)**
+
+
+
+
+
+
+
